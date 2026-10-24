@@ -1,10 +1,10 @@
-# **SQLite Core**
+# SQLite Core
 
 *An educational project showcasing how to use SQLite with Python, covering both synchronous and asynchronous approaches.*
 
-## **Project Structure**
+## Project Structure
 
-```bash
+```
 sqlite-core/
 ├── app/                   # Main application code
 ├── .env.example           # Example environment variables file
@@ -16,48 +16,42 @@ sqlite-core/
 
 Each directory includes its own `README.md` with detailed information about its contents and usage, and every file contains comprehensive inline comments to explain the code.
 
-## **Dependencies Overview**
+## Dependencies Overview
 
-- [pydantic-settings](https://github.com/pydantic/pydantic-settings) — 
-a Pydantic-powered library for managing application configuration and environment variables with strong typing, validation, and seamless `.env` support.
+| Dependency | Repository | What it is |
+| :--- | :--- | :--- |
+| **CPython** | [python/cpython](https://github.com/python/cpython) | The de facto standard implementation of the Python programming language. |
+| **pydantic-settings** | [pydantic/pydantic-settings](https://github.com/pydantic/pydantic-settings) | Pydantic-powered library for managing application configuration and environment variables with strong typing, validation, and seamless `.env` support. |
+| **SQLAlchemy** | [sqlalchemy/sqlalchemy](https://github.com/sqlalchemy/sqlalchemy) | The Python SQL toolkit and Object-Relational Mapper (ORM) used as the foundation for database modeling, querying, and transaction management in both synchronous and asynchronous contexts. |
+| **Alembic** | [sqlalchemy/alembic](https://github.com/sqlalchemy/alembic) | A lightweight database migration tool for SQLAlchemy, enabling structured, version-controlled evolution of the SQLite schema over time. |
+| **sqlite3** | - | Python’s built-in module for working with SQLite databases — no extra installation required. |
+| **aiosqlite** | [omnilib/aiosqlite](https://github.com/omnilib/aiosqlite) | An asynchronous wrapper around Python’s built-in `sqlite3` module, enabling non-blocking SQLite database operations. |
+| **JupyterLab** *(Dev)* | [jupyterlab/jupyterlab](https://github.com/jupyterlab/jupyterlab) | Next-generation web-based interactive development environment for Jupyter notebooks; used here to create interactive documents for testing and verifying code execution. |
+| **sqlite** *(Dev)* | [mackyle/sqlite](https://github.com/mackyle/sqlite) | The official SQLite engine CLI tool. [^1] |
 
-- [SQLAlchemy](https://github.com/sqlalchemy/sqlalchemy) — 
-the Python SQL toolkit and Object-Relational Mapper (ORM) used as the foundation for database modeling, querying, and transaction management in both synchronous and asynchronous contexts.
+[^1]: While Python’s built-in `sqlite3` module handles all runtime database operations, it lacks the ability to connect to the database via a command-line interface to inspect or query data using SQL-like commands. Installing the full SQLite engine provides a CLI tool that allows direct inspection, querying, and manipulation of the SQLite database file from the terminal (e.g., to verify schema structure or examine raw data).
 
-- [Alembic](https://github.com/sqlalchemy/alembic) — 
-a lightweight database migration tool for SQLAlchemy, enabling structured, version-controlled evolution of the SQLite schema over time.
+## Quick Start
 
-- **`sqlite3`** — 
-python’s built-in module for working with SQLite databases — no extra installation required.
+### I. Prerequisites
 
-- [aiosqlite](https://github.com/omnilib/aiosqlite) — 
-an asynchronous wrapper around Python’s built-in `sqlite3` module, enabling non-blocking SQLite database operations.
+| Component | Requirement |
+| :--- | :--- |
+| **Operating System** | GNU/Linux-based system |
+| **Architecture** | `x86_64` |
+| **Package Manager** | [`Pixi`](https://pixi.prefix.dev/latest/) |
 
-### **Testing & Development Dependencies**
+> **Note:**  
+> These are not strict requirements, but rather the baseline environment where the code is 
+> guaranteed to run out of the box. Alternative setups are possible but may require manual 
+> configuration.
 
-- [JupyterLab](https://github.com/jupyterlab/jupyterlab) — 
-a next-generation web-based interactive development environment for Jupyter notebooks; used here to create interactive documents for testing and verifying code execution.
-
-- [sqlite](https://github.com/mackyle/sqlite) — 
-the official SQLite engine. While Python’s built-in `sqlite3` module handles all runtime database operations (which is why the SQLite engine is listed under "Testing & Development"), it lacks a very important feature for testing (at least for me): the ability to connect to the database via a command-line interface and inspect or query data using SQL-like commands. That’s why I install the full SQLite engine — it includes a CLI tool that allows me to directly inspect, query, and manipulate the SQLite database file from the terminal — for example, to verify the schema structure or examine raw data.
-
-## **Quick Start**
-
-### **I. Prerequisites**
-
-- [Pixi](https://pixi.sh/latest/) package manager.
-
-> **Platform note**: All development and testing were performed on `linux-64`.  
-> If you're using a different platform, you’ll need to:
-> 1. Update the `platforms` list in the `pixi.toml` accordingly.
-> 2. Ensure that platform-specific scripts are compatible with your operating system or replace them with equivalents.
-
-### **II. Database Setup**
+### II. Environment Setup
 
 1. **Clone the repository**
 
     ```bash
-    git clone git@github.com:Sierra-Arn/sqlite-core.git
+    git clone https://github.com/snegoviol/sqlite-core.git
     cd sqlite-core
     ```
 
@@ -74,12 +68,13 @@ the official SQLite engine. While Python’s built-in `sqlite3` module handles a
     ```
 
 4. **Create a database migration & Apply it**
+    
     ```bash
     pixi run alembic-revision
     pixi run alembic-upgrade
     ```
 
-### **III. Testing**
+### III. Testing
 
 Once a database is ready, you can run and test the SQLite implementation with interactive Jupyter notebooks in `playground-testing/`:
 
@@ -101,10 +96,10 @@ You can open a SQLite shell to manually verify that everything is working correc
     pixi run sqlite-shell
     ```
 
-### **IV. Cleanup**
+### IV. Cleanup
 
 When you finish testing, stop JupyterLab by pressing `Ctrl+C` in the terminal where it's running.
 
-## **License**
+## License
 
-This project is licensed under the [BSD-3-Clause License](LICENSE).
+Each file in this repository is licensed under the [MIT No Attribution License](LICENSE.txt).
